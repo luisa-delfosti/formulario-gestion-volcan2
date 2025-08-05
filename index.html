@@ -99,9 +99,9 @@ document.getElementById("btnEnviar").addEventListener("click", function() {
 
     let mensaje = `Fecha y hora: ${fechaHora}\n`;
     mensaje += "------------------------------\n";
-    if (informativo) mensaje += `Informativo:\n${informativo}\n\n`;
-    if (decision) mensaje += `Decisión:\n${decision}\n\n`;
-    if (decisionTomar) mensaje += `Decisión a tomar:\n${decisionTomar}\n\n`;
+    mensaje += `Informativo:\n${informativo}\n\n`;
+    mensaje += `Decisión:\n${decision}\n\n`;
+    mensaje += `Decisión a tomar:\n${decisionTomar}\n\n`;
 
     this.href = `https://wa.me/${numero}?text=${encodeURIComponent(mensaje)}`;
 });
