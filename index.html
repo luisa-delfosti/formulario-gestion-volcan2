@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Formulario de Gestión</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f7f8fa;
+        margin: 0;
+        padding: 20px;
+        color: #333;
+    }
+    .container {
+        max-width: 800px;
+        margin: auto;
+        background-color: #fff;
+        border-radius: 15px;
+        padding: 20px;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+    h2 {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-size: 20px;
+        color: #444;
+    }
+    .section {
+        margin-top: 20px;
+        padding: 20px;
+        border-radius: 15px;
+        background-color: #fafafa;
+    }
+    textarea {
+        width: 100%;
+        min-height: 60px;
+        border: 1px solid #ddd;
+        border-radius: 10px;
+        padding: 10px;
+        resize: none;
+        font-size: 14px;
+        margin-top: 10px;
+    }
+    .btn {
+        margin-top: 20px;
+        background-color: #f5b700;
+        color: #000;
+        padding: 12px 20px;
+        border: none;
+        border-radius: 10px;
+        cursor: pointer;
+        font-weight: bold;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        text-decoration: none;
+        justify-content: center;
+    }
+    .btn:hover {
+        background-color: #e0a900;
+    }
+</style>
+</head>
+<body>
+
+<div class="container">
+    <h1>📄 Formulario de Gestión</h1>
+    <p><strong>📅 FECHA:</strong> <span id="fechaActual"></span></p>
+
+    <div class="section">
+        <h2>ℹ️ INFORMATIVO</h2>
+        <textarea id="informativo" placeholder="Describe la información relevante...">1.- 
+2.- 
+3.- </textarea>
+    </div>
+
+    <div class="section">
+        <h2>🗂️ DECISIÓN</h2>
+        <textarea id="decision" placeholder="Analiza los aspectos relevantes para la decisión..."></textarea>
+        <textarea id="decisionTomar" placeholder="Especifica la decisión final..."></textarea>
+    </div>
+
+    <a id="btnEnviar" class="btn" target="_blank">📤 Enviar</a>
+</div>
+
+<script>
+document.getElementById("fechaActual").textContent = new Date().toLocaleDateString("es-PE");
+
+// Guardar datos en localStorage cuando se escriba
+document.querySelectorAll("textarea").forEach(textarea => {
+    textarea.addEventListener("input", () => {
+        localStorage.setItem(textarea.id, textarea.value);
+    });
+});
+
+// Cargar datos guardados
+document.querySelectorAll("textarea").forEach(textarea => {
+    const guardado = localStorage.getItem(textarea.id);
+    if (guardado) {
+        textarea.value = guardado;
+    }
+});
+
+// Generar enlace dinámico al hacer clic
+document.getElementById("btnEnviar").addEventListener("click", function() {
+    const numero = "51969596608";
+    const fechaHora = new Date().toLocaleString("es-PE", { timeZone: "America/Lima" });
+
+    const informativo = document.getElementById("informativo").value.trim();
+    const decision = document.getElementById("decision").value.trim();
+    const decisionTomar = document.getElementById("decisionTomar").value.trim();
+
+    let mensaje = `📅 *Fecha y hora:* ${fechaHora}\n`;
+    mensaje += "------------------------------\n";
+    if (informativo) mensaje += `ℹ️ *Informativo:*\n${informativo}\n\n`;
+    if (decision) mensaje += `🗂️ *Decisión:*\n${decision}\n\n`;
+    if (decisionTomar) mensaje += `📝 *Decisión a tomar:*\n${decisionTomar}\n\n`;
+
+    this.href = `https://wa.me/${numero}?text=${encodeURIComponent(mensaje)}`;
+});
+</script>
+
+</body>
+</html>
