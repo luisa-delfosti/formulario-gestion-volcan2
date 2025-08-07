@@ -25,6 +25,9 @@
         color: #444;
     }
     h2 {
+        display: flex;
+        align-items: center;
+        gap: 10px;
         font-size: 20px;
         color: #444;
     }
@@ -67,29 +70,29 @@
 <body>
 
 <div class="container">
-    <h1>Formulario de Gestión</h1>
-    <p><strong>Fecha:</strong> <span id="fechaActual"></span></p>
+    <h1>📄 Formulario de Gestión</h1>
+    <p><strong>📅 FECHA:</strong> <span id="fechaActual"></span></p>
 
     <div class="section">
-        <h2>Informativo</h2>
+        <h2>ℹ️ INFORMATIVO</h2>
         <textarea id="informativo" placeholder="Describe la información relevante...">1.- 
 2.- 
 3.- </textarea>
     </div>
 
     <div class="section">
-        <h2>Decisión</h2>
+        <h2>🗂️ DECISIÓN</h2>
         <textarea id="decision" placeholder="Analiza los aspectos relevantes para la decisión..."></textarea>
         <textarea id="decisionTomar" placeholder="Especifica la decisión final..."></textarea>
     </div>
 
-    <a id="btnEnviar" class="btn" target="_blank">Enviar</a>
+    <a id="btnEnviar" class="btn" target="_blank">📤 Enviar</a>
 </div>
 
 <script>
 document.getElementById("fechaActual").textContent = new Date().toLocaleDateString("es-PE");
 
-document.getElementById("btnEnviar").addEventListener("click", function() {
+document.getElementById("btnEnviar").addEventListener("click", function () {
     const numero = "51969596608";
     const fechaHora = new Date().toLocaleString("es-PE", { timeZone: "America/Lima" });
 
@@ -97,11 +100,11 @@ document.getElementById("btnEnviar").addEventListener("click", function() {
     const decision = document.getElementById("decision").value.trim();
     const decisionTomar = document.getElementById("decisionTomar").value.trim();
 
-    let mensaje = `Fecha y hora: ${fechaHora}\n`;
+    let mensaje = `📅 *Fecha y hora:* ${fechaHora}\n`;
     mensaje += "------------------------------\n";
-    mensaje += `Informativo:\n${informativo}\n\n`;
-    mensaje += `Decisión:\n${decision}\n\n`;
-    mensaje += `Decisión a tomar:\n${decisionTomar}\n\n`;
+    if (informativo) mensaje += `ℹ️ *Informativo:*\n${informativo}\n\n`;
+    if (decision) mensaje += `🗂️ *Decisión:*\n${decision}\n\n`;
+    if (decisionTomar) mensaje += `📝 *Decisión a tomar:*\n${decisionTomar}\n\n`;
 
     this.href = `https://wa.me/${numero}?text=${encodeURIComponent(mensaje)}`;
 });
